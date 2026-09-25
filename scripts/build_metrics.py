@@ -1,9 +1,9 @@
-"""Compute road-per-resident metrics from data/hm71_2023_all_areas.csv.
+"""Compute road-per-resident metrics from data/hm71_2024_all_areas.csv.
 
 Outputs:
-    data/us-metro-road-per-resident-2023.csv  every US urbanized area over 1 million people
+    data/us-metro-road-per-resident-2024.csv  every US urbanized area over 1 million people
                                               (Puerto Rico excluded), sorted by road per resident
-    data/regional-aggregates-2023.csv         greater Southern California and Bay Area totals,
+    data/regional-aggregates-2024.csv         greater Southern California and Bay Area totals,
                                               which recombine areas the Census splits apart
 """
 import csv
@@ -15,22 +15,25 @@ MIN_POP = 1_000_000
 
 # Short chart labels, keyed by the part of the FHWA name before the first comma.
 LABELS = {
-    "New York--Newark": "New York", "Los Angeles--Long Beach--Anaheim": "Los Angeles",
-    "Dallas--Fort Worth--Arlington": "Dallas–Fort Worth", "Washington": "Washington, DC",
-    "Phoenix--Mesa": "Phoenix", "San Francisco--Oakland": "San Francisco–Oakland",
+    "New York--Jersey City--Newark": "New York", "Los Angeles--Long Beach--Anaheim": "Los Angeles",
+    "Dallas--Fort Worth--Arlington": "Dallas–Fort Worth", "Washington--Arlington": "Washington, DC",
+    "Phoenix--Mesa--Scottsdale": "Phoenix", "San Francisco--Oakland": "San Francisco–Oakland",
     "Minneapolis--St. Paul": "Minneapolis–St. Paul", "Tampa--St. Petersburg": "Tampa",
     "Denver--Aurora": "Denver", "Riverside--San Bernardino": "Riverside–San Bernardino",
-    "Las Vegas--Henderson": "Las Vegas", "Salt Lake City--West Valley City": "Salt Lake City",
+    "Las Vegas--Henderson--Paradise": "Las Vegas", "Miami--Fort Lauderdale": "Miami",
+    "Seattle--Tacoma": "Seattle", "Virginia Beach--Norfolk": "Virginia Beach",
+    "Nashville-Davidson": "Nashville",
 }
 
 REGIONS = {
     "Greater Southern California": [
         "Los Angeles--Long Beach--Anaheim", "Riverside--San Bernardino",
-        "Mission Viejo--Lake Forest--San Clemente", "Santa Clarita", "Thousand Oaks",
-        "Simi Valley", "Oxnard", "Camarillo", "Lancaster--Palmdale",
-        "Murrieta--Temecula--Menifee", "Victorville--Hesperia"],
+        "Mission Viejo--Lake Forest--Laguna Niguel", "Santa Clarita", "Thousand Oaks",
+        "Simi Valley", "Oxnard--San Buenaventura (Ventura)", "Camarillo", "Palmdale--Lancaster",
+        "Temecula--Murrieta--Menifee", "Victorville--Hesperia--Apple Valley"],
     "San Francisco Bay Area": [
-        "San Francisco--Oakland", "San Jose", "Concord", "Antioch", "Livermore", "Vallejo",
+        "San Francisco--Oakland", "San Jose", "Concord--Walnut Creek", "Antioch",
+        "Livermore--Pleasanton--Dublin", "Vallejo",
         "Fairfield", "Vacaville", "Napa", "Santa Rosa", "Petaluma", "Gilroy--Morgan Hill"],
 }
 
@@ -48,7 +51,7 @@ def metrics(pop, miles, dvmt_k):
     }
 
 
-rows = list(csv.DictReader(open(ROOT / "data" / "hm71_2023_all_areas.csv")))
+rows = list(csv.DictReader(open(ROOT / "data" / "hm71_2024_all_areas.csv")))
 for r in rows:
     for c in ("population_2020", "miles_total", "dvmt_k_total"):
         r[c] = int(r[c])
@@ -64,7 +67,7 @@ for r in rows:
                 "daily_vmt_thousands": r["dvmt_k_total"],
                 **metrics(r["population_2020"], r["miles_total"], r["dvmt_k_total"])})
 out.sort(key=lambda d: -d["road_m_per_resident"])
-p = ROOT / "data" / "us-metro-road-per-resident-2023.csv"
+p = ROOT / "data" / "us-metro-road-per-resident-2024.csv"
 with open(p, "w", newline="") as fh:
     w = csv.DictWriter(fh, fieldnames=list(out[0]))
     w.writeheader()
@@ -84,7 +87,7 @@ for region, members in REGIONS.items():
     agg.append({"region": region, "urbanized_areas": "; ".join(members), "population_2020": pop,
                 "public_road_miles": miles, "daily_vmt_thousands": dvmt, **metrics(pop, miles, dvmt)})
 if agg:
-    p = ROOT / "data" / "regional-aggregates-2023.csv"
+    p = ROOT / "data" / "regional-aggregates-2024.csv"
     with open(p, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(agg[0]))
         w.writeheader()

@@ -1,4 +1,4 @@
-"""Render the two chart cards (1080x1350 PNG) from data/us-metro-road-per-resident-2023.csv.
+"""Render the two chart cards (1080x1350 PNG) from data/us-metro-road-per-resident-2024.csv.
 
 Requires: pip install playwright pillow && playwright install chromium
 Fonts (SIL OFL) are bundled in fonts/."""
@@ -21,13 +21,13 @@ FONTS = [("Crimson Pro", "crimson-pro", (400, 600, 700)),
          ("IBM Plex Sans", "ibm-plex-sans", (400, 500, 600, 700))]
 HI = {"Los Angeles": "accent", "Kansas City": "ink"}
 
-rows = list(csv.DictReader(open(ROOT / "data" / "us-metro-road-per-resident-2023.csv")))
-SOURCE = ("Source: FHWA, <i>Highway Statistics 2023</i>, Table HM-71. Urbanized areas over "
+rows = list(csv.DictReader(open(ROOT / "data" / "us-metro-road-per-resident-2024.csv")))
+SOURCE = ("Source: FHWA, <i>Highway Statistics 2024</i>, Table HM-71. Urbanized areas over "
           "1 million people; population from the 2020 Census. Centerline miles only; "
           "FHWA does not record road width.")
 
 
-def bars_svg(data, fmt, plot_h, xmax):
+def bars_svg(data, fmt, plot_h, xmax, hi):
     """data: list of (label, value), already sorted. Returns an SVG string."""
     PW = W - 2 * PAD
     LAB_W = 292            # label column, right-aligned
@@ -42,7 +42,7 @@ def bars_svg(data, fmt, plot_h, xmax):
     for i, (lab, v) in enumerate(data):
         yc = step * i + step / 2
         wbar = v / xmax * bar_max
-        role = HI.get(lab)
+        role = hi.get(lab)
         fill = T[role] if role else T["bar"]
         cls = "hi" if role else "lab"
         vcls = f"v{role}" if role else "val"
@@ -83,7 +83,7 @@ text{{font-family:'{T['sans']}',sans-serif}}
 .vink{{font-size:21px;font-weight:700;fill:{T['ink']}}}
 """
 
-PLOT_H = 930
+PLOT_H = 950
 
 
 def card(title, sub, svg, source):
@@ -97,25 +97,25 @@ def card(title, sub, svg, source):
 CARDS = [
     ("road-per-resident",
      "Los Angeles has less road per person than any big American city",
-     "Meters of public road per resident, US urbanized areas over 1 million people, 2023",
+     "Meters of public road per resident, US urbanized areas over 1 million people, 2024",
      sorted([(r["label"], float(r["road_m_per_resident"])) for r in rows], key=lambda t: -t[1]),
-     lambda v: f"{v:.1f}", 10.5, SOURCE),
+     lambda v: f"{v:.1f}", 11.6, SOURCE, {"Los Angeles": "accent", "Nashville": "ink"}),
     ("traffic-per-road-mile",
-     "Los Angeles roads carry more traffic per mile than any other big city&#8217;s",
-     "Vehicle-miles driven per day on each mile of public road, same urbanized areas, 2023",
+     "Los Angeles roads carry nearly twice the traffic per mile of Kansas City&#8217;s",
+     "Vehicle-miles driven per day on each mile of public road, same urbanized areas, 2024",
      sorted([(r["label"], float(r["daily_vmt_per_road_mile"])) for r in rows], key=lambda t: -t[1]),
-     lambda v: f"{v:,.0f}", 10300,
-     "Source: FHWA, <i>Highway Statistics 2023</i>, Table HM-71. Urbanized areas over 1 million "
+     lambda v: f"{v:,.0f}", 10600,
+     "Source: FHWA, <i>Highway Statistics 2024</i>, Table HM-71. Urbanized areas over 1 million "
      "people. Daily vehicle-miles include through traffic. Centerline miles only; FHWA does not "
-     "record road width."),
+     "record road width.", HI),
 ]
 
 if __name__ == "__main__":
     with sync_playwright() as p:
         br = p.chromium.launch()
-        for slug, title, sub, data, fmt, xmax, src in CARDS:
+        for slug, title, sub, data, fmt, xmax, src, hi in CARDS:
             f = OUT / f"{slug}.html"
-            f.write_text(card(title, sub, bars_svg(data, fmt, PLOT_H, xmax), src))
+            f.write_text(card(title, sub, bars_svg(data, fmt, PLOT_H, xmax, hi), src))
             pg = br.new_page(viewport={"width": W, "height": H}, device_scale_factor=2)
             pg.goto(f.as_uri())
             pg.evaluate("document.fonts.ready")

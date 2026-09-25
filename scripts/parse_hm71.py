@@ -1,13 +1,13 @@
-"""Parse FHWA Highway Statistics 2023, Table HM-71 into data/hm71_2023_all_areas.csv.
+"""Parse FHWA Highway Statistics 2024, Table HM-71 into data/hm71_2024_all_areas.csv.
 
 Every data row in the table is an urbanized-area name followed by 17 numbers:
-    population (2020 Census),
+    population (2020 Census urbanized area),
     miles by functional class (7 columns) and TOTAL miles,
     daily vehicle-miles traveled in thousands by class (7 columns) and TOTAL DVMT.
 A dash means zero.
 
 Usage:
-    python scripts/parse_hm71.py                      # reads data/raw/hm71_2023.pdf
+    python scripts/parse_hm71.py                      # reads data/raw/hm71_2024.pdf
     python scripts/parse_hm71.py path/to/table.txt    # or a plain-text extraction
 
 Checks performed:
@@ -74,11 +74,11 @@ def check(rows, total):
 
 
 if __name__ == "__main__":
-    src = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "data" / "raw" / "hm71_2023.pdf"
+    src = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "data" / "raw" / "hm71_2024.pdf"
     rows, total = parse(src)
     assert rows, f"no data rows parsed from {src}"
     check(rows, total)
-    out = ROOT / "data" / "hm71_2023_all_areas.csv"
+    out = ROOT / "data" / "hm71_2024_all_areas.csv"
     with open(out, "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(COLS)
