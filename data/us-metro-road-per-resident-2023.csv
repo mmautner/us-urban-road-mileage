@@ -1,0 +1,42 @@
+urbanized_area,label,population_2020,public_road_miles,daily_vmt_thousands,road_m_per_resident,residents_per_road_mile,daily_vmt_per_road_mile,daily_vmt_per_resident
+"Kansas City, MO--KS",Kansas City,1519417,9400,48110,9.96,161.6,5118,31.7
+"Pittsburgh, PA",Pittsburgh,1733853,9972,36252,9.26,173.9,3635,20.9
+"Atlanta, GA",Atlanta,4515419,25388,159660,9.05,177.9,6289,35.4
+"Jacksonville, FL",Jacksonville,1065219,5965,39095,9.01,178.6,6554,36.7
+"Minneapolis--St. Paul, MN--WI",Minneapolis–St. Paul,2650890,14380,68174,8.73,184.3,4741,25.7
+"Providence, RI--MA",Providence,1190956,6293,25580,8.5,189.3,4065,21.5
+"Indianapolis, I",Indianapolis,1487483,7716,55072,8.35,192.8,7137,37.0
+"St. Louis, MO--IL",St. Louis,2150706,11114,64994,8.32,193.5,5848,30.2
+"Memphis, TN--MS--AR",Memphis,1060061,5463,28764,8.29,194.0,5265,27.1
+"Austin, TX",Austin,1362416,6970,44302,8.23,195.5,6356,32.5
+"Virginia Beach, VA",Virginia Beach,1439666,7110,36875,7.95,202.5,5186,25.6
+"Milwaukee, WI",Milwaukee,1376476,6660,33569,7.79,206.7,5040,24.4
+"San Antonio, TX",San Antonio,1758210,8371,51420,7.66,210.0,6143,29.2
+"Dallas--Fort Worth--Arlington, TX",Dallas–Fort Worth,5121892,24104,154569,7.57,212.5,6413,30.2
+"Charlotte, NC--SC",Charlotte,1249442,5714,42077,7.36,218.7,7364,33.7
+"Cincinnati, OH--KY--I",Cincinnati,1624827,7333,43604,7.26,221.6,5946,26.8
+"Phoenix--Mesa, AZ",Phoenix,3629114,16095,105364,7.14,225.5,6546,29.0
+"Orlando, FL",Orlando,1510516,6602,56618,7.03,228.8,8576,37.5
+"Columbus, OH",Columbus,1368035,5927,36289,6.97,230.8,6123,26.5
+"Tampa--St. Petersburg, FL",Tampa,2441770,10554,76507,6.96,231.4,7249,31.3
+"Cleveland, OH",Cleveland,1780673,7519,41206,6.8,236.8,5480,23.1
+"Boston, MA--NH--RI",Boston,4181019,17645,104844,6.79,237.0,5942,25.1
+"Houston, TX",Houston,4944332,20786,142176,6.77,237.9,6840,28.8
+"Detroit, MI",Detroit,3734090,15414,90024,6.64,242.3,5840,24.1
+"Denver--Aurora, CO",Denver,2374203,9573,59557,6.49,248.0,6221,25.1
+"Portland, OR--WA",Portland,1849898,7463,37099,6.49,247.9,4971,20.1
+"Philadelphia, PA--NJ--DE--MD",Philadelphia,5441567,21196,108775,6.27,256.7,5132,20.0
+"Salt Lake City--West Valley City, UT",Salt Lake City,1021243,3889,27015,6.13,262.6,6947,26.5
+"Seattle, WA",Seattle,3059393,10845,65910,5.7,282.1,6077,21.5
+"Chicago, IL--I",Chicago,8608208,30071,166441,5.62,286.3,5535,19.3
+"Sacramento, CA",Sacramento,1723634,5909,35948,5.52,291.7,6084,20.9
+"Baltimore, MD",Baltimore,2203663,7493,56069,5.47,294.1,7483,25.4
+"Riverside--San Bernardino, CA",Riverside–San Bernardino,1932666,6169,48098,5.14,313.3,7797,24.9
+"Las Vegas--Henderson, NV",Las Vegas,1886011,5796,45606,4.95,325.4,7869,24.2
+"Washington, DC--VA--MD","Washington, DC",4586770,13550,104833,4.75,338.5,7737,22.9
+"Miami, FL",Miami,5502379,15688,142662,4.59,350.7,9094,25.9
+"San Diego, CA",San Diego,2956746,7274,67629,3.96,406.5,9297,22.9
+"New York--Newark, NY--NJ--CT",New York,18351295,44249,288778,3.88,414.7,6526,15.7
+"San Jose, CA",San Jose,1664496,3874,30240,3.75,429.7,7806,18.2
+"San Francisco--Oakland, CA",San Francisco–Oakland,3281212,7361,57540,3.61,445.8,7817,17.5
+"Los Angeles--Long Beach--Anaheim, CA",Los Angeles,12150996,24934,245216,3.3,487.3,9835,20.2
